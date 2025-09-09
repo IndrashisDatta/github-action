@@ -1,4 +1,4 @@
-name: CI/CD for day86 
+name: CI/CD for git-bucket-yr
 
 on:
   push:
@@ -20,5 +20,5 @@ jobs:
           aws-region: us-east-1
 
       - name: Deploy Static Site to S3 Bucket
-        run: aws s3 sync . s3://rnkchybucket --delete
+        run: aws s3 sync . s3://git-bucket-yr --delete
 
