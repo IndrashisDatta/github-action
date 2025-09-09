@@ -1,0 +1,23 @@
+name: CI/CD for git-bucket-yr
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v1
+
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.ACCESSONE }} // give the name of the access file u created in the GitHub action workflow file after secrets.
+          aws-secret-access-key: ${{ secrets.SECRET}} // give the name of the secret file u created in the GitHub action workflow file after secrets.
+          aws-region: us-east-1
+
+      - name: Deploy Static Site to S3 Bucket
+        run: aws s3 sync . s3://git-bucket-yr --delete
